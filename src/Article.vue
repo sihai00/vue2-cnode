@@ -38,7 +38,7 @@
 <script>
 import comment from './components/comment'
 export default {
-  name: 'Topic',
+  name: 'Article',
   data () {
     return {
       replyid: ''

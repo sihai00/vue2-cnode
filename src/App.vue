@@ -30,8 +30,10 @@ body{
 }
 h1{
   font-size: 2rem;
+  margin-top: 0;
 }
 h2{
+  margin-top: 0;
   font-size: 1.8rem;
 }
 h3{
@@ -68,7 +70,7 @@ ul {
 }
 .markdown-text{
   img{
-    width: 100%;
+    max-width: 100%;
   }
 }
 .coment-content h1{

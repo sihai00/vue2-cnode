@@ -1,21 +1,21 @@
 <template>
   <nav class="cnav">
-    <a href="#"><strong>Cnode-mobile</strong></a>
-    <a @click="increment">狗蛋</a>
+    <span><img src="../assets/logo.png" alt="logo"><a href="#">Cnode</a></span>
+    <span>
+      <router-link :to="{name: 'Login'}">
+        <img :src="[userLogo]" alt="userLogo" v-if="userLogo">
+        <img src="../assets/timg.jpeg" alt="userLogo" v-else>
+      </router-link>
+    </span>
   </nav>
 </template>
 
 <script>
 export default {
   name: 'cnav',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
-  methods: {
-    increment(){
-      
+  computed: {
+    userLogo() {
+      return this.$store.state.userInfo.avatar_url
     }
   }
 }
@@ -37,8 +37,16 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  span{
+    font-weight: bold;
+  }
   a{
     color: #5e5e5e;
+  }
+  img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 6px;
   }
 }
 </style>

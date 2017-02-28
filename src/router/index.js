@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Hello from 'components/Hello'
 import Artlists from '../Artlists'
-import Topic from '../Topic'
+import Article from '../Article'
 import Login from '../Login'
 
 Vue.use(Router)
@@ -16,14 +16,9 @@ export default new Router({
       component: Artlists
     },
     {
-      path: '/topic/:id',
-      name: 'Topic',
-      component: Topic
-    },
-    {
-      path: '/Hello',
-      name: 'Hello',
-      component: Hello
+      path: '/Article/:id',
+      name: 'Article',
+      component: Article
     },
     {
       path: '/Login',

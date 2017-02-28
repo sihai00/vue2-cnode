@@ -11,7 +11,7 @@
     <section class="artlist">
       <ul>
         <li class="artlist-item" v-for="artlist in this.artlists">
-          <router-link :to="{ name: 'Topic', params: { id: artlist.id }}">
+          <router-link :to="{ name: 'Article', params: { id: artlist.id }}">
             <div class="artlist-title"><span class="label label-success">{{artlist.tab | getArticleTab(artlist.good, artlist.top)}}</span><strong>{{ artlist.title }}</strong></div>
             <div class="content clearfix">
               <img :src="[artlist.author.avatar_url]">
@@ -56,7 +56,6 @@ export default {
     this.$store.dispatch('getArtlists')
 
     let window_height = window.innerHeight
-
     document.addEventListener('scroll', () => {
       if (this.isScroll && (window_height + document.body.scrollTop > document.body.clientHeight)) {
         this.isScroll = false
