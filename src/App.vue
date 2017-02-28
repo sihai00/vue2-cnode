@@ -1,16 +1,20 @@
 <template>
   <div id="app">
+    <cnav></cnav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import cnav from './components/cnav'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {cnav}
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 /* 全局样式 */
 html{
   height: 100%;
@@ -24,7 +28,16 @@ body{
   color: #2c3e50;
   background-color: #eee;
 }
-a{
+h1{
+  font-size: 2rem;
+}
+h2{
+  font-size: 1.8rem;
+}
+h3{
+  font-size: 1.6rem;
+}
+a, a:active, a:focus{
   text-decoration: none;
 }
 ul {
@@ -34,17 +47,31 @@ ul {
     list-style: none;
   }
 }
-.label-primary {
-  background-color: #337ab7;
+.app-wrap{
+  margin-top: 6rem;
 }
-.clearfix{
-  &:before,
-  &:after {
-    content: " ";
-    display: table;
+.content{
+  img{
+    max-width: 3rem;
+    max-height: 3rem;
+    float: left;
+    margin: 0.3rem 1rem 0.3rem 0;
   }
-  &:after {
-    clear: both;
+  .info-item{
+    margin-bottom: 0.1rem;
+    color: #2c3e50;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
+}
+.markdown-text{
+  img{
+    width: 100%;
+  }
+}
+.coment-content h1{
+  font-size: 2rem;
 }
 </style>
