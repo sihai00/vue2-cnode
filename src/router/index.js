@@ -5,6 +5,7 @@ import Hello from 'components/Hello'
 import Artlists from '../Artlists'
 import Article from '../Article'
 import Login from '../Login'
+import UserInfo from '../UserInfo'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/Login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/UserInfo',
+      name: 'UserInfo',
+      component: UserInfo
     },
     {
       path: '*',

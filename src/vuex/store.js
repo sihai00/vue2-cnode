@@ -19,7 +19,8 @@ export default new Vuex.Store({
       avatar_url: localStorage.avatar_url,
       accesstoken: localStorage.accesstoken,
       id: localStorage.id
-    }
+    },
+    userDec: {}
   },
   mutations: {
     // 获取帖子列表
@@ -60,6 +61,9 @@ export default new Vuex.Store({
     // 获取点赞数据
     get_ups(state, ups){
       state.ups = ups
+    },
+    get_userDec(state, data){
+      state.userDec = data
     }
   },
   actions: {
@@ -83,9 +87,9 @@ export default new Vuex.Store({
   		})
   	},
     // 获取用户详细信息
-    getUserDec(store, userName){
-      Vue.axios.get(`https://cnodejs.org/api/v1/user/${userName}`).then((response) => {
-        store.commit('get_userInfo', response.data.data)
+    getUserDec(store){
+      Vue.axios.get(`https://cnodejs.org/api/v1/user/${store.state.userInfo.loginname}`).then((response) => {
+        store.commit('get_userDec', response.data.data)
       }).catch((e) => {
         console.log(e)
       })

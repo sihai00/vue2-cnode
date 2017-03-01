@@ -2,7 +2,7 @@
   <nav class="cnav">
     <span><img src="../assets/logo.png" alt="logo"><a href="#">Cnode</a></span>
     <span>
-      <router-link :to="{name: 'Login'}">
+      <router-link :to="{name: 'UserInfo'}">
         <img :src="[userLogo]" alt="userLogo" v-if="userLogo">
         <img src="../assets/timg.jpeg" alt="userLogo" v-else>
       </router-link>
@@ -25,7 +25,7 @@ export default {
 <style scoped lang="scss">
 .cnav{
   font-size: 1.8rem;
-  line-height: 5rem;
+  line-height: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
   display: flex;
@@ -37,6 +37,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
   span{
     font-weight: bold;
   }

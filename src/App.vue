@@ -50,7 +50,7 @@ ul {
   }
 }
 .app-wrap{
-  margin-top: 6rem;
+  padding-top: 5rem;
 }
 .content{
   img{
