@@ -24,14 +24,14 @@
         </li>
       </ul>
     </section>
-    <footer class="footer">
+    <!-- <footer class="footer">
       <ul>
         <li class="active">cnode</li>
         <li>aa</li>
         <li>bb</li>
         <li>cc</li>
       </ul>
-    </footer>
+    </footer> -->
   </div>
 </template>
 

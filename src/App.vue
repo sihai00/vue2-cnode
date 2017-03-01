@@ -1,32 +1,44 @@
 <template>
   <div id="app">
     <cnav></cnav>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
+    <returnTop></returnTop>
   </div>
 </template>
 
 <script>
 import cnav from './components/cnav'
+import returnTop from './components/returnTop'
 
 export default {
   name: 'app',
-  components: {cnav}
+  components: {cnav,returnTop}
 }
 </script>
 
 <style lang="scss">
+// 过渡动画
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .7s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
 /* 全局样式 */
 html{
   height: 100%;
   max-height: 100%;
   font-size: 62.5%;
+  transition: all 1s;
 }
 body{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background-color: #eee;
+  // background-color: #eee;
 }
 h1{
   font-size: 2rem;
@@ -49,8 +61,15 @@ ul {
     list-style: none;
   }
 }
+#app{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 .app-wrap{
   padding-top: 5rem;
+  background-color: #eee;
+  height: 100%;
 }
 .content{
   img{

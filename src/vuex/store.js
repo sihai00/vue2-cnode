@@ -62,6 +62,7 @@ export default new Vuex.Store({
     get_ups(state, ups){
       state.ups = ups
     },
+    // 获取用户详细信息
     get_userDec(state, data){
       state.userDec = data
     }
@@ -70,7 +71,12 @@ export default new Vuex.Store({
     // 获取列表数据
   	getArtlists(store, type){
   		let { topic } = store.state
-  		var string = `limit=${topic.limit}&&tab=${type?type:topic.tab}&&page=${topic.page}&&mdrender=${topic.mdrender}`
+      if (type) {
+        topic.limit = 10
+      }else{
+        type = topic.tab
+      }
+  		var string = `limit=${topic.limit}&&tab=${type}&&page=${topic.page}&&mdrender=${topic.mdrender}`
 
   		Vue.axios.get(`https://cnodejs.org/api/v1/topics?${string}`).then((response) => {
 			  store.commit('get_artlists', response.data.data)

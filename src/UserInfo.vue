@@ -13,16 +13,16 @@
 			<ul class="recent-content">
 				<li v-for="recent in recents" @click="toArticle(replies.id)">
 					<div class="content clearfix">
-	          <img :src="recent.author.avatar_url">
-	          <div class="info">
-	          	<div class="info-item"><strong>{{recent.title}}</strong></div>
-	            <div class="info-item">
-	            	<span>{{recent.author.loginname}}</span>
-	            	<span>{{recent.last_reply_at | getLastTime}}</span>
-	            </div>
-	          </div>
-	        </div>
-        </li>
+						<img :src="recent.author.avatar_url">
+						<div class="info">
+							<div class="info-item"><strong>{{recent.title}}</strong></div>
+							<div class="info-item">
+								<span>{{recent.author.loginname}}</span>
+								<span>{{recent.last_reply_at | getLastTime}}</span>
+							</div>
+						</div>
+					</div>
+				</li>
 			</ul>
 		</section>
 	</div>
@@ -67,10 +67,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .app-wrap{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
+	// position: absolute;
+	// height: 100%;
+	// width: 100%;
+	// overflow: hidden;
 }
 .userInfo{
 	padding: 1rem 3rem;
@@ -97,7 +97,7 @@ export default {
 }
 .recent{
 	background-color: #fff;
-	height: 100%;
+	// height: 100%;
 	.recent-select{
 		display: flex;
 		border-bottom: 1px solid #ddd;
@@ -118,7 +118,7 @@ export default {
 	}
 }
 .recent-content{
-	overflow: auto;
+	overflow: scroll;
 	li{
 		padding: 1rem;
 		border-bottom: 1px solid #ddd;
