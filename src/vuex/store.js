@@ -7,6 +7,7 @@ export default new Vuex.Store({
 	state: {
 		artlists:[],
 		article: [],
+    ups: [],
     topic: {
     	page: 1,
       tab: 'all',
@@ -22,7 +23,7 @@ export default new Vuex.Store({
   },
   mutations: {
     // 获取帖子列表
-    get_artlists(state, artlists) {
+    get_artlists(state, artlists){
       state.artlists = artlists
     },
     // 设置帖子列表数量
@@ -41,6 +42,24 @@ export default new Vuex.Store({
       localStorage.id = info.id
       localStorage.loginname = info.loginname
       localStorage.accesstoken = info.accesstoken
+    },
+    // 设置点赞功能
+    set_ups(state, upState){
+      let userId = state.userInfo.id
+
+      if (upState === 'up') {
+        state.ups.push(userId)
+      }else{
+        for(let [i, v] of state.ups.entries()){
+          if (v === userId) {
+            state.ups.splice(i, 1)
+          }
+        }
+      }
+    },
+    // 获取点赞数据
+    get_ups(state, ups){
+      state.ups = ups
     }
   },
   actions: {
@@ -79,5 +98,15 @@ export default new Vuex.Store({
         console.log(e)
       })
     },
+    // 设置点赞
+    setUps(store, replies){
+      Vue.axios.post(`https://cnodejs.org/api/v1/reply/${replies.id}/ups`,{accesstoken: store.state.userInfo.accesstoken}).then((response) => {
+        store.commit('get_ups', replies.ups)
+        store.commit('set_ups', response.data.action)
+        return response.data
+      }).catch((e) => {
+        console.log(e)
+      })
+    }
   }
 })

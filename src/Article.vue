@@ -20,8 +20,17 @@
           <div class="content">
             <img :src="[replies.author.avatar_url]">
             <div class="info">
-              <div class="info-item" v-if="replies.ups"><span>{{replies.author.loginname}}</span><span class="label label-success">{{replies.ups.length}}赞</span></div>
-              <div class="info-item"><time>发布于：{{replies.create_at.split('T')[0]}}</time><span class="label label-warning" @click="replyid_to(replies.id)">回复</span></div>
+              <div class="info-item" v-if="replies.ups">
+                <span>{{replies.author.loginname}}</span>
+                <span class="label label-default"
+                      :class="[isUps(replies.ups) ? 'label-success' : null]"
+                      @click="ups(replies)"
+                >{{replies.ups.length}}赞</span>
+              </div>
+              <div class="info-item">
+                <time>发布于：{{replies.create_at.split('T')[0]}}</time>
+                <span class="label label-warning" @click="replyid_to(replies.id)">回复</span>
+              </div>
             </div>
           </div>
           <div class="coment-content" v-html="replies.content"></div>
@@ -56,6 +65,18 @@ export default {
   methods: {
     replyid_to(id) {
       this.replyid = id
+    },
+    ups(replies){
+      this.$store.dispatch('setUps', replies)
+    },
+    isUps(ups){
+      let myId = this.$store.state.userInfo.id
+      
+      return ups.some((v, i) => {
+        if (v === myId) {
+          return true
+        }
+      })
     }
   }
 }

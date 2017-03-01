@@ -17,7 +17,7 @@ export default {
   name: 'Login',
   data () {
     return {
-      token: '5131a181-5dbb-4f55-9fd7-4fc128120a28'
+      token: ''
     }
   },
   methods: {
