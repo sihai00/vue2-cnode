@@ -44,3 +44,14 @@ export let getLastTime = (creatTime) => {
   }
   return str;
 }
+
+export let getTime = (time) => {
+  let year = time.getFullYear()
+  let month = time.getMonth()
+  let day = time.getDate()
+  let hours = time.getHours()
+  let min = time.getMinutes()
+  let second = time.getSeconds()
+
+  return `${year}-${month}-${day}T${hours}:${min}:${second}`
+}

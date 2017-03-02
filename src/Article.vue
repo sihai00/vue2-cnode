@@ -11,8 +11,8 @@
       </div>
       <div class="article-centent" v-html="get_Article.content"></div>
     </section>
-    <section class="comment-num">
-      <span class="label label-info mr4">8</span><span>回复</span>
+    <section class="comment-num" v-if="get_Article.replies">
+      <span class="label label-info mr4">{{get_Article.replies.length}}</span><span>回复</span>
     </section>
     <section class="comment">
       <ul>
@@ -29,12 +29,17 @@
               </div>
               <div class="info-item">
                 <time>发布于：{{replies.create_at.split('T')[0]}}</time>
-                <span class="label label-warning" @click="replyid_to(replies.id)">回复</span>
+                <span class="label label-warning" @click="replyid_to(replies.id, replies.author.loginname)">回复</span>
               </div>
             </div>
           </div>
           <div class="coment-content" v-html="replies.content"></div>
-          <comment v-show="replyid == replies.id"></comment>
+          <comment 
+            v-show="get_aretext_state == replies.id" 
+            :replyid="replies.id" 
+            :replyName="replies.author.loginname"
+            :replyState="replyid"
+          ></comment>
         </li>
       </ul>
     </section>
@@ -50,7 +55,7 @@ export default {
   name: 'Article',
   data () {
     return {
-      replyid: ''
+      replyid: '',
     }
   },
   mounted(){
@@ -59,12 +64,16 @@ export default {
   computed: {
     get_Article() {
       return this.$store.state.article
+    },
+    get_aretext_state() {
+      return this.$store.state.areatext_state
     }
   },
   components: {comment},
   methods: {
-    replyid_to(id) {
-      this.replyid = id
+    replyid_to(id, name) {
+      // this.replyid = id
+      this.$store.commit('set_areatext',id)
     },
     ups(replies){
       this.$store.dispatch('setUps', replies)

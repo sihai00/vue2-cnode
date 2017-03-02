@@ -10,8 +10,8 @@
 				<span :class="[activeTab === 'replies'? 'active' : null]" @click="selectTab('replies')">最近回复</span>
 				<span :class="[activeTab === 'topics'? 'active' : null]" @click="selectTab('topics')">最新发布</span>
 			</div>
-			<ul class="recent-content">
-				<li v-for="recent in recents" @click="toArticle(replies.id)">
+			<ul class="recent-content" v-if="recents">
+				<li v-for="recent in recents" @click="toArticle(recent.id)">
 					<div class="content clearfix">
 						<img :src="recent.author.avatar_url">
 						<div class="info">
@@ -22,6 +22,9 @@
 							</div>
 						</div>
 					</div>
+				</li>
+				<li v-if="recents.length === 0">
+					<div>暂无话题</div>
 				</li>
 			</ul>
 		</section>
@@ -34,7 +37,7 @@ export default {
 	data () {
 		return {
 			activeTab: 'replies',
-			recents: ''
+			recents: []
 		}
 	},
 	mounted(){
@@ -47,9 +50,8 @@ export default {
 			}else if(this.activeTab === 'topics'){
 				this.recents = this.$store.state.userDec.recent_topics
 			}else{
-				this.recents = ''
+				this.recents = []
 			}
-			
 			return this.$store.state.userDec
 		}
 	},
@@ -66,12 +68,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.app-wrap{
-	// position: absolute;
-	// height: 100%;
-	// width: 100%;
-	// overflow: hidden;
-}
 .userInfo{
 	padding: 1rem 3rem;
 	.user-logo{
@@ -97,7 +93,6 @@ export default {
 }
 .recent{
 	background-color: #fff;
-	// height: 100%;
 	.recent-select{
 		display: flex;
 		border-bottom: 1px solid #ddd;

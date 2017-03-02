@@ -38,7 +38,7 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  // background-color: #eee;
+  background-color: #eee;
 }
 h1{
   font-size: 2rem;
@@ -61,15 +61,8 @@ ul {
     list-style: none;
   }
 }
-#app{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
 .app-wrap{
   padding-top: 5rem;
-  background-color: #eee;
-  height: 100%;
 }
 .content{
   img{

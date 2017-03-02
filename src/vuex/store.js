@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {getTime} from '../filters'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
       accesstoken: localStorage.accesstoken,
       id: localStorage.id
     },
-    userDec: {}
+    userDec: {},
+    areatext_state: ''
   },
   mutations: {
     // 获取帖子列表
@@ -65,6 +67,29 @@ export default new Vuex.Store({
     // 获取用户详细信息
     get_userDec(state, data){
       state.userDec = data
+    },
+    get_replyid(state, id){
+      state.replyid = id
+    },
+    set_comment(state, body){
+      let string
+
+      string = {
+        author: {
+          avatar_url: state.userInfo.avatar_url,
+          loginname: state.userInfo.loginname,
+        },
+        content: `<p>${body.content}</p>`,
+        create_at: getTime(new Date()),
+        id: state.userInfo.id,
+        reply_id: null,
+        ups: []
+      }
+
+      state.article.replies.push(string)
+    },
+    set_areatext(state, id){
+      state.areatext_state = id
     }
   },
   actions: {
@@ -113,6 +138,21 @@ export default new Vuex.Store({
       Vue.axios.post(`https://cnodejs.org/api/v1/reply/${replies.id}/ups`,{accesstoken: store.state.userInfo.accesstoken}).then((response) => {
         store.commit('get_ups', replies.ups)
         store.commit('set_ups', response.data.action)
+        return response.data
+      }).catch((e) => {
+        console.log(e)
+      })
+    },
+    // 评论
+    setComment(store, body){
+      let string = {
+        accesstoken: store.state.userInfo.accesstoken,
+        content: body.content,
+        reply_id: body.replyid
+      }
+      // console.log(string)
+      Vue.axios.post(`https://cnodejs.org/api/v1/topic/${store.state.article.id}/replies`,string).then((response) => {
+        store.commit('set_comment', string)
         return response.data
       }).catch((e) => {
         console.log(e)
