@@ -119,11 +119,13 @@ export default new Vuex.Store({
   	},
     // 获取用户详细信息
     getUserDec(store){
-      Vue.axios.get(`https://cnodejs.org/api/v1/user/${store.state.userInfo.loginname}`).then((response) => {
-        store.commit('get_userDec', response.data.data)
-      }).catch((e) => {
-        console.log(e)
-      })
+      if (store.state.userInfo.loginname) {
+        Vue.axios.get(`https://cnodejs.org/api/v1/user/${store.state.userInfo.loginname}`).then((response) => {
+          store.commit('get_userDec', response.data.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      }
     },
     // 验证用户token
     verifyUser(store, accesstoken){

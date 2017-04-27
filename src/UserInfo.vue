@@ -1,7 +1,10 @@
 <template>
 	<div class="app-wrap">
 		<section class="userInfo">
-			<div class="user-logo"><img :src="[userDec.avatar_url]" alt="头像"></div>
+			<div class="user-logo">
+        <img :src="[userDec.avatar_url]" alt="头像" v-if="userDec.avatar_url">
+        <img src="./assets/logo.png" alt="头像" v-if="!userDec.avatar_url">
+      </div>
 			<div class="user-name"><strong>{{userDec.loginname}}</strong></div>
 			<div class="user-dec" v-if="userDec.create_at"><strong>注册时间：{{userDec.create_at.split('T')[0]}}</strong><strong>积分：{{userDec.score}}</strong></div>
 		</section>
