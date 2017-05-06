@@ -9,6 +9,8 @@ export default new Vuex.Store({
 		artlists:[],
 		article: [],
     ups: [],
+    // url: 'https://cnodejs.org/api/v1',
+    url: 'http://127.0.0.1:3000',
     topic: {
     	page: 1,
       tab: 'all',
@@ -32,6 +34,12 @@ export default new Vuex.Store({
     // 设置帖子列表数量
     set_artlists_limit(state, limit){
     	state.topic.limit += limit
+    },
+    // 设置帖子类型
+    set_artlists_type(state, type){
+      state.topic.tab = type
+      localStorage.tab = type
+      console.log(localStorage.tab)
     },
     // 获取帖子信息
     get_article(state, article) {
@@ -103,7 +111,7 @@ export default new Vuex.Store({
       }
   		var string = `limit=${topic.limit}&&tab=${type}&&page=${topic.page}&&mdrender=${topic.mdrender}`
 
-  		Vue.axios.get(`https://cnodejs.org/api/v1/topics?${string}`).then((response) => {
+  		Vue.axios.get(`${store.state.url}/topics?${string}`).then((response) => {
 			  store.commit('get_artlists', response.data.data)
 			}).catch((e) => {
 				console.log(e)
@@ -111,7 +119,7 @@ export default new Vuex.Store({
   	},
     // 获取文章数据
   	getArticle(store, articleId){
-  		Vue.axios.get(`https://cnodejs.org/api/v1/topic/${articleId}`).then((response) => {
+  		Vue.axios.get(`${store.state.url}/topic/${articleId}`).then((response) => {
   			store.commit('get_article', response.data.data)
   		}).catch((e) => {
   			console.log(e)
@@ -120,7 +128,7 @@ export default new Vuex.Store({
     // 获取用户详细信息
     getUserDec(store){
       if (store.state.userInfo.loginname) {
-        Vue.axios.get(`https://cnodejs.org/api/v1/user/${store.state.userInfo.loginname}`).then((response) => {
+        Vue.axios.get(`${store.state.url}/user/${store.state.userInfo.loginname}`).then((response) => {
           store.commit('get_userDec', response.data.data)
         }).catch((e) => {
           console.log(e)
@@ -129,7 +137,7 @@ export default new Vuex.Store({
     },
     // 验证用户token
     verifyUser(store, accesstoken){
-      Vue.axios.post(`https://cnodejs.org/api/v1/accesstoken`,{accesstoken}).then((response) => {
+      Vue.axios.post(`${store.state.url}/accesstoken`,{accesstoken}).then((response) => {
         store.commit('get_userInfo', Object.assign(response.data,{accesstoken}))
       }).catch((e) => {
         console.log(e)
@@ -137,7 +145,7 @@ export default new Vuex.Store({
     },
     // 设置点赞
     setUps(store, replies){
-      Vue.axios.post(`https://cnodejs.org/api/v1/reply/${replies.id}/ups`,{accesstoken: store.state.userInfo.accesstoken}).then((response) => {
+      Vue.axios.post(`${store.state.url}/reply/${replies.id}/ups`,{accesstoken: store.state.userInfo.accesstoken}).then((response) => {
         store.commit('get_ups', replies.ups)
         store.commit('set_ups', response.data.action)
         return response.data
@@ -153,7 +161,7 @@ export default new Vuex.Store({
         reply_id: body.replyid
       }
       // console.log(string)
-      Vue.axios.post(`https://cnodejs.org/api/v1/topic/${store.state.article.id}/replies`,string).then((response) => {
+      Vue.axios.post(`${store.state.url}/topic/${store.state.article.id}/replies`,string).then((response) => {
         store.commit('set_comment', string)
         return response.data
       }).catch((e) => {

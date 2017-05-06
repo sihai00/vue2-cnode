@@ -2,9 +2,11 @@
   <nav class="cnav">
     <span><img src="../assets/logo.png" alt="logo"><a href="#">Cnode</a></span>
     <span>
-      <router-link :to="{name: 'UserInfo'}">
-        <img :src="[userLogo]" alt="userLogo" v-if="userLogo">
-        <img src="../assets/timg.jpeg" alt="userLogo" v-else>
+      <router-link :to="{name: 'UserInfo'}" v-if="userLogo">
+        <img :src="[userLogo]" alt="userLogo">
+      </router-link>
+      <router-link :to="{name: 'Login'}" v-else>
+        <img src="../assets/timg.jpeg" alt="userLogo">
       </router-link>
     </span>
   </nav>

@@ -20,6 +20,9 @@ export default {
       token: ''
     }
   },
+  mounted(){
+    localStorage.clear();
+  },
   methods: {
     submitToken() {
       this.$store.dispatch('verifyUser', this.token)

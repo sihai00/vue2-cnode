@@ -47,19 +47,21 @@ export default {
         {'title' : '问答', 'type' : 'ask'},
         {'title' : '招聘', 'type' : 'job'}
       ],
-      activeTab: 'all',
+      activeTab: localStorage.tab || 'all' ,
       isScroll: true
     }
   },
   // 第一次加载完执行
   mounted() {
-    this.$store.dispatch('getArtlists')
+    this.$store.dispatch('getArtlists', this.activeTab)
+    this.$store.commit('set_artlists_type', this.activeTab)
 
     let window_height = window.innerHeight
     document.addEventListener('scroll', () => {
       if (this.isScroll && (window_height + document.body.scrollTop > document.body.clientHeight)) {
         this.isScroll = false
         this.$store.commit('set_artlists_limit', 10)
+        this.$store.commit('set_artlists_type', this.activeTab)
         this.$store.dispatch('getArtlists').catch((e) => {
           console.log(e)
         })
@@ -81,6 +83,7 @@ export default {
   // 该组件方法
   methods: {
     select_topic(type){
+      this.$store.commit('set_artlists_type', type)
       this.$store.dispatch('getArtlists', type)
       this.activeTab = type
     }
